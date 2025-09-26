@@ -1,26 +1,22 @@
-// 导入提示组件,导入axios类型,导入配置好的axios实例
-import { message } from 'ant-design-vue';
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import http from './service';
+import { message } from 'ant-design-vue'; // 导入提示组件
+import { AxiosRequestConfig, AxiosResponse } from 'axios'; // 导入axios类型
+import http from './service'; // 导入上面配置好的axios实例
 
-// 拓展axios响应类型(适配项目后端返回格式)
-export interface AxiosRequest<T> extends AxiosResponse {
-	// http状态码,业务数据,错误信息,允许其他自定义字段
-	status: number;
-	data: T;
-	message?: string;
-	error?: string;
-	[key: string]: any;
+// 扩展Axios响应类型（适配项目后端返回格式）
+export interface IAxiosResponse<T> extends AxiosResponse {
+	status: number; // HTTP状态码
+	data: T; // 业务数据
+	message?: string; // 业务消息
+	error?: string; // 错误信息
+	[key: string]: any; // 允许其他自定义字段
 }
 
-const env = import.meta.env.DEV;
+const env = import.meta.env.DEV; // 判断是否为开发环境
 
-// 拓展请求配置类型
-// 是否关闭错误提示,自定义成功状态码,自定义请求头
 export interface RequestConfig extends AxiosRequestConfig {
-	closeErrorMessage?: boolean;
-	successStatusCheckValue?: number | 'none';
-	header?: Record<string, any>;
+	closeErrorMessage?: boolean; // 是否关闭错误提示（默认开启）
+	successStatusCheckValue?: number | 'none'; // 自定义成功状态码（默认200）
+	header?: Record<string, any>; // 自定义请求头
 }
 
 // GET请求封装
